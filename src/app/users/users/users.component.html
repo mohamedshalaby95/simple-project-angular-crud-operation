@@ -1,0 +1,39 @@
+<div class=" btn-primary d-flex justify-content-between  aligns-item-center  bg-gray mt-2 ">
+  <h1 class="ms-5">Users</h1>
+  <button class="btn btn-primary ps-5 pe-5 me-5" (click)="openAddModal()">+Add User</button>
+
+</div>
+<div class="container bg-grey">
+<table class="table text-center">
+  <thead>
+    <tr>
+      <th *ngFor="let colum of headers">
+        {{colum}}
+      </th>
+    </tr>
+  </thead>
+  <tbody  >
+
+    <!-- <tr *ngFor = "let user of users">
+      <td *ngFor = "let colum of headers">
+        {{user.{{colum}}]}}
+      </td>
+    </tr> -->
+    <tr *ngFor = "let user of users">
+      <td>{{user.id}}</td>
+      <td>{{user.name}}</td>
+      <td>{{user.phone}}</td>
+      <td> {{user.address.street}} > {{   user.address.city}} </td>
+
+    </tr>
+
+  </tbody>
+</table>
+</div>
+
+<div id="userModel">
+
+</div>
+
+
+
