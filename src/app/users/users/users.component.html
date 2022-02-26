@@ -1,6 +1,6 @@
 <div class=" btn-primary d-flex justify-content-between  aligns-item-center  bg-gray mt-2 ">
   <h1 class="ms-5">Users</h1>
-  <button class="btn btn-primary ps-5 pe-5 me-5" (click)="openAddModal()">+Add User</button>
+  <button class="btn btn-primary ps-5 pe-5 me-5"  data-bs-toggle="modal" data-bs-target="#exampleModal">+Add User</button>
 
 </div>
 <div class="container bg-grey">
@@ -24,6 +24,8 @@
       <td>{{user.name}}</td>
       <td>{{user.phone}}</td>
       <td> {{user.address.street}} > {{   user.address.city}} </td>
+      <!-- <button class="btn btn-primary ps-5 pe-5 me-5"  data-bs-toggle="modal" data-bs-target="#edit">+Add User</button> -->
+      <td> <button class="btn btn-primary mb-md-2"data-bs-toggle="modal" data-bs-target="#edit" (click)="setValueUser(user)">Edit</button> <button (click)=" deleteUser($event,user.id)" class="btn btn-danger ms-2 " > Delete</button></td>
 
     </tr>
 
@@ -31,9 +33,142 @@
 </table>
 </div>
 
-<div id="userModel">
+<!-- <ngx-smart-modal identifier="userModal"> >
+  <form [formGroup]="addForm"  (ngSubmit)="addUser()">
+    <div class="mb-3">
+      <label for="name" class="form-label">name</label>
+      <input type="text" class="form-control" id="name" formControlName="name"   aria-describedby="emailHelp">
 
+    </div>
+    <div class="mb-3">
+      <label for="email" class="form-label">email</label>
+      <input type="email" class="form-control" id="email" formControlName="email" >
+    </div>
+    <div class="mb-3">
+      <label for="phone" class="form-label">phone</label>
+      <input type="number" class="form-control" id="phone" formControlName="phone" >
+    </div>
+
+
+    <div class="row g-3 align-items-center mb-5">
+      <div class="col-auto">
+        <input type="text" placeholder="street" class="form-control" id="street" formControlName="street" >
+      </div>
+      <div class="col-auto">
+        <input type="text" placeholder="city" class="form-control" id="city" formControlName="city" >
+      </div>
+      <div class="col-auto">
+        <input type="text" placeholder="country" class="form-control" id="city" formControlName="country" >
+      </div>
+
+    </div>
+
+    <button   type="submit"
+    [disabled]="!addForm.valid || !addForm.dirty" type="submit" class="btn btn-primary">Submit</button>
+    <button
+    (click)="cancel()" class="btn btn-danger ms-5">cancle</button>
+  </form>
+</ngx-smart-modal> -->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">user</h5>
+        <button #closePopup type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form [formGroup]="addForm"  (ngSubmit)="addUser()">
+          <div class="mb-3">
+            <label for="name" class="form-label">name</label>
+            <input type="text" class="form-control" id="name" formControlName="name"   aria-describedby="emailHelp">
+
+          </div>
+          <div class="mb-3">
+            <label for="email" class="form-label">email</label>
+            <input type="email" class="form-control" id="email" formControlName="email" >
+          </div>
+          <div class="mb-3">
+            <label for="phone" class="form-label">phone</label>
+            <input type="number" class="form-control" id="phone" formControlName="phone" >
+          </div>
+
+
+          <div class="row g-3 align-items-center mb-5">
+            <div class="col-auto">
+              <input type="text" placeholder="street" class="form-control" id="street" formControlName="street" >
+            </div>
+            <div class="col-auto">
+              <input type="text" placeholder="city" class="form-control" id="city" formControlName="city" >
+            </div>
+            <div class="col-auto">
+              <input type="text" placeholder="country" class="form-control" id="city" formControlName="country" >
+            </div>
+
+          </div>
+
+          <div class="modal-footer">
+            <button   type="submit"
+            [disabled]="!addForm.valid || !addForm.dirty" type="submit" class="btn btn-primary">Submit</button>
+            <!-- <button
+            (click)="cancel()" class="btn btn-danger ms-5">cancle</button> -->
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          </div>
+        </form>
+      </div>
+
+    </div>
+  </div>
 </div>
 
 
 
+<div class="modal fade" id="edit" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">edit user</h5>
+        <button #closePopup type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form [formGroup]="editForm" (ngSubmit)="editUser($event)" >
+          <div class="mb-3">
+            <label for="name" class="form-label">name</label>
+            <input  type="text" class="form-control" id="name" formControlName="name"   aria-describedby="emailHelp">
+
+          </div>
+          <div class="mb-3">
+            <label for="email" class="form-label">email</label>
+            <input type="email" class="form-control" id="email" formControlName="email" >
+          </div>
+          <div class="mb-3">
+            <label for="phone" class="form-label">phone</label>
+            <input type="text" class="form-control" id="phone" formControlName="phone" >
+          </div>
+
+
+          <div class="row g-3 align-items-center mb-5">
+            <div class="col-auto">
+              <input type="text" placeholder="street" class="form-control" id="street" formControlName="street" >
+            </div>
+            <div class="col-auto">
+              <input type="text" placeholder="city" class="form-control" id="city" formControlName="city" >
+            </div>
+            <div class="col-auto">
+              <input type="text" placeholder="country" class="form-control" id="city" formControlName="country" >
+            </div>
+
+          </div>
+
+          <div class="modal-footer">
+            <button   type="submit"
+            [disabled]="!editForm.valid || !editForm.dirty" type="submit" class="btn btn-primary" >Submit</button>
+            <!-- <button
+            (click)="cancel()" class="btn btn-danger ms-5">cancle</button> -->
+            <button type="button" class="btn btn-secondary" #closePopupedit data-bs-dismiss="modal">Close</button>
+          </div>
+        </form>
+      </div>
+
+    </div>
+  </div>
+</div>

@@ -1,0 +1,22 @@
+<form [formGroup]="loginFormGroup" (ngSubmit)="login()" class="w-50 m-auto p-5">
+  <span class="display-6 mb-5">Login</span>
+     <div class="form-group">
+       <label for="exampleInputPassword1">Email</label>
+       <input formControlName="email" type="email" class="form-control mb-2 mt-2" id="exampleInputPassword1"
+         placeholder="Email">
+       <span class="error m-5"
+         *ngIf="loginFormGroup.controls['email'].errors?.['required'] && loginFormGroup.controls['email'].dirty">Required</span>
+       <span class="error" *ngIf="loginFormGroup.controls['email'].errors?.['pattern']">Please Enter a Valid
+         Email</span>
+     </div>
+     <div class="form-group">
+       <label for="exampleInputNumber1">Password</label>
+       <input formControlName="password" type="password" class="form-control mt-2 mb-2" id="exampleInputNumber1"
+         placeholder="Password">
+       <span class="error m-5"
+         *ngIf="loginFormGroup.controls['password'].errors?.['required'] && loginFormGroup.controls['password'].dirty">Required</span>
+       <span class="error" *ngIf="loginFormGroup.controls['password'].errors?.['pattern']">Please enter upper case and special character min length 8
+      </span>
+     </div>
+     <button type="submit" class="btn btn-primary w-100 mt-2">Submit</button>
+   </form>

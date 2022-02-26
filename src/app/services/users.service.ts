@@ -14,6 +14,12 @@ export class UsersService {
     return this.httpClient.get<User[]>(this.baseURL + '/users');
   }
   addUser(newUser: Omit<User, 'id'>){
-    return this.httpClient.post<User>(this.baseURL + '/users', newUser );
+    return this.httpClient.post<User>(this.baseURL + '/users', {...newUser} );
+  }
+  deleteUserById(id: number){
+    return this.httpClient.delete(this.baseURL + '/users/' + id);
+  }
+  editUser(id: number, newUser: Omit<User, 'id'>){
+    return this.httpClient.put<User>(this.baseURL + '/users/' + id, newUser);
   }
 }
